@@ -74,7 +74,9 @@ sim <- function(players = 4, rondas = 10, cash = 100){
   game <- data.frame()
   for(i in 1:rondas){
     if(!winner){
-      ronda<- jugar_ronda(vec_ronda = sample(perinola,size = players, replace = TRUE), 
+      ronda<- jugar_ronda(vec_ronda = sample(perinola,
+                                             size = players, 
+                                              replace = TRUE), 
                           wallet = wallet, 
                           pozo = pozo, 
                           players = players)
@@ -128,7 +130,7 @@ ganador <- function(cash=20, players=4, N=100){
     i <- 0
     game <- data.frame()
     ronda<-wallet
-    while( sum(ronda[1:players]==0)<3 ){
+    while( sum(ronda[1:players]==0)< players-1 ){
       i=i+1
       ronda<- jugar_ronda(vec_ronda = sample(perinola,size = players, replace = TRUE), 
                           wallet = wallet, 
@@ -145,7 +147,7 @@ ganador <- function(cash=20, players=4, N=100){
 }
   
   
-simulacion <- sim(rondas = 100,cash=10,players=5)
+simulacion <- sim(rondas = 3000,cash=40,players=40)
 players<-ncol(simulacion)-1
 simulacion$play <- 1:nrow(simulacion)
 simulacion %>% 
@@ -153,6 +155,7 @@ simulacion %>%
   gather("jugador","n",1:players ) %>% 
   ggplot(aes(x=play,y=n,colour=jugador))+
   geom_step()
+
 
 
 
