@@ -82,7 +82,7 @@ return(names_dataframe(game))
 }
 
 ## simulacion para encontrar cuantas rondas son necesarias para que haya un perdedor.
-primer_perdedor <-function(cash=10){
+primer_perdedor <-function(cash=10, players=4){
   perinola <<- c("Pon 1","Pon 2","Toma 1", "Toma 2", "Toma todo", "Todos ponen")
   wallet<-rep(cash,players)
   pozo <- 0
@@ -104,7 +104,7 @@ primer_perdedor <-function(cash=10){
 }
 
 # simulacion para saber cuantas rondas son necesarias para que haya un ganador.
-ganador <- function(cash=20){
+ganador <- function(cash=20, players=4){
   vector_juegos <- vector()
   for(j in 1:100){
     perinola <<- c("Pon 1","Pon 2","Toma 1", "Toma 2", "Toma todo", "Todos ponen")
