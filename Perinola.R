@@ -11,7 +11,7 @@ jugar_ronda <- function(vec_ronda, wallet , pozo, players){
         pozo <- pozo + 1
       ####### PON 2 ####################  
       } else if(vec_ronda[i] == perinola[2]){
-        if(wallet[i] > 2){
+        if(wallet[i] >= 2){
           wallet[i] <- wallet[i]-2
           pozo <- pozo + 2
         } else if (wallet[i]==1){
@@ -94,6 +94,7 @@ return(names_dataframe(game))
 
 
 ## simulacion para encontrar cuantas rondas son necesarias para que haya un perdedor.
+<<<<<<< Updated upstream
 primer_perdedor <-function(cash=10, players=4, N=50){
   vector_juegos <- vector()
   for(j in 1:N){
@@ -115,22 +116,56 @@ primer_perdedor <-function(cash=10, players=4, N=50){
       
     }
    vector_juegos <- c(vector_juegos,i) 
+=======
+primer_perdedor <-function(cash=10,players=4,wait=2){
+  perinola <<- c("Pon 1","Pon 2","Toma 1", "Toma 2", "Toma todo", "Todos ponen")
+  wallet<-rep(cash,players)
+  pozo <- 0
+  i <- 0
+  game <- data.frame()
+  ronda<-wallet
+  time_stamp<-Sys.time()
+  while( sum(ronda[1:players]==0)==0 ){
+    i=i+1
+    ronda<- jugar_ronda(vec_ronda = sample(perinola,size = players, replace = TRUE), 
+                        wallet = wallet, 
+                        pozo = pozo, 
+                        players = players)
+    wallet <- ronda[1:players]
+    pozo <- ronda[length(ronda)]
+    game <- rbind(game,ronda)
+    if(Sys.time()-time_stamp >wait*60){
+      i=0
+      print("Timeout")
+      break()
+    }
+>>>>>>> Stashed changes
   }
   return(vector_juegos)
 }
 
 
 # simulacion para saber cuantas rondas son necesarias para que haya un ganador.
+<<<<<<< Updated upstream
 ganador <- function(cash=20, players=4, N=100){
   vector_juegos <- vector()
   for(j in 1:N){
+=======
+ganador <- function(cash=20, sims=100, players=4){
+  vector_juegos <- vector()
+  for(j in 1:sims){
+>>>>>>> Stashed changes
     perinola <<- c("Pon 1","Pon 2","Toma 1", "Toma 2", "Toma todo", "Todos ponen")
     wallet<-rep(cash,players)
     pozo <- 0
     i <- 0
     game <- data.frame()
     ronda<-wallet
+<<<<<<< Updated upstream
     while( sum(ronda[1:players]==0)< players-1 ){
+=======
+    while( sum(ronda[1:players]==0)<players-1 ){
+>>>>>>> Stashed changes
       i=i+1
       ronda<- jugar_ronda(vec_ronda = sample(perinola,size = players, replace = TRUE), 
                           wallet = wallet, 
